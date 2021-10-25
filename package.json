@@ -1,0 +1,21 @@
+{
+  "name": "tradingview-meanreversion",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "prestart": "npm run build",
+    "start": "func start",
+    "test": "echo \"No tests yet...\""
+  },
+  "dependencies": {
+    "kraken-api": "^1.0.1",
+    "mssql": "^7.2.1"
+  },
+  "devDependencies": {
+    "@azure/functions": "^1.2.3",
+    "@types/node": "^16.11.4",
+    "typescript": "^4.0.0"
+  }
+}
