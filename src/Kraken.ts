@@ -21,7 +21,7 @@ class Kraken {
     return priceObj;
   };
 
-  Balance = async () => {
+  Balance = async (): Promise<number> => {
     const result = (await this.kraken.api("Balance")).result;
     return result.ZUSD;
   };
