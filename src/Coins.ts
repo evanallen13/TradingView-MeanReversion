@@ -3,19 +3,24 @@ import typeCoin from "./Models/typeCoin";
 const Coins: { [pair: string]: typeCoin } = {};
 
 Coins.BTCUSD = {
-    Pair: "XBTUSD",
+    Pair: "BTCUSD",
     KrakenPair: "XXBTZUSD",
     Minimum: 0.0001,
     Decimal: 1,
-    SellOff_Percent: 1.05
 };
 
-Coins.XDGUSD = {
-    Pair: "XDGUSD",
+Coins.DOGEUSD = {
+    Pair: "DOGEUSD",
     KrakenPair: "XDGUSD",
     Minimum: 50,
-    Decimal: 8,
-    SellOff_Percent: 1.01
+    Decimal: 7,
 };
+
+// Coins.XRPUSD = {
+//     Pair: "XRPUSD",
+//     KrakenPair: "XXRPZUSD",
+//     Minimum: 5,
+//     Decimal: 8,
+// };
 
 export default Coins;

@@ -1,26 +1,26 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import Kraken from "../src/Kraken";
 import Coins from "../src/Coins";
-import typePrice from "../src/Models/typePrice";
-import typeBuy from "../src/Models/typeBuy";
 import typeCoin from "../src/Models/typeCoin";
+import Data from "../src/Data";
+import enumTrader from "../src/Models/enumTraders"; 
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
-
+    
     const ticker: string = req.query.ticker; //req.body.ticker;
+    const trader: enumTrader = enumTrader[req.query.trader];
     const kraken: Kraken = new Kraken();
     const coin: typeCoin = Coins[ticker];
-    const [currBalance, askBid] = await Promise.all([kraken.Balance(), kraken.AskBid(coin)]);
+    const data: Data = new Data();
 
-    // if (coin.Minimum * askBid.Ask < currBalance) {
-    //     context.log("Buy");
-    // }
+    // Need Ticker 
+    const buys = await data.OpenBuy_Select(ticker, trader);
 
-    const responseMessage = `Ther price of ${coin.KrakenPair} is $${askBid.Ask}. \n Current bal ${currBalance}`;
+    for(let buy of buys){
+        context.log(buy.Ticker)
+    }
 
-    context.res = {
-        body: responseMessage
-    };
+
 };
 
 export default httpTrigger;

@@ -2,14 +2,17 @@ const KrakenClient = require("kraken-api");
 import typeOrder from "./Models/typeOrder";
 import typeCoin from "./Models/typeCoin";
 import typePrice from "./Models/typePrice";
+import Calc from "./Calc";
 
 class Kraken {
   kraken = new KrakenClient(process.env.krakenKey, process.env.krakenSecret);
+  calc: Calc = new Calc();
 
   Price = async (ticker: string): Promise<number> => {
     const price = (await this.kraken.api("Ticker", { pair: ticker })).result[
       ticker
     ].a[0];
+    
     return Number(price);
   };
 
@@ -26,7 +29,7 @@ class Kraken {
     return result.ZUSD;
   };
 
-  AddOrder = async (order: typeOrder): Promise<string> => {
+  AddOrder = async (order): Promise<string> => {
     try {
       const result = await this.kraken.api("AddOrder", {
         pair: order.pair,
@@ -36,19 +39,40 @@ class Kraken {
         price: order.price,
       });
 
-      return result.result.txid[0];
+      return await result.result.txid[0];
     } catch (err) {
-      console.log("Error: " + err.message);
+      console.log("Error AddOrder: " + err.message);
       return "Error";
     }
   };
 
-  QueryOrder = async (id: string) => {
-    const result = await this.kraken.api("QueryOrders", {
+  QueryOrder = async (id: string, coin: typeCoin): Promise<typeOrder> => {
+    const response = await this.kraken.api("QueryOrders", {
       txid: id,
-    });
+    })
+    const result = response.result[id];
 
-    return result.result[id];
+    const sellOff = this.calc.MinSellPrice_WithFee(
+      Number(result.price),
+      coin.Minimum,
+      0.0026,
+      0.01
+    );
+
+    const order: typeOrder = {
+      ticker: coin.Pair,
+      txid: id,
+      pair: result.descr.pair,
+      volume: result.vol,
+      price: result.price,
+      sellPrice: sellOff,
+      createdOn: new Date(),
+      fee: result.fee,
+      type: result.descr.type,
+      ordertype: result.descr.ordertype,
+    }
+
+    return order;
   };
 }
 

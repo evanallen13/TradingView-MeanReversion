@@ -3,7 +3,6 @@ type typeCoin = {
     KrakenPair: string;
     Minimum: number;
     Decimal: number;
-    SellOff_Percent: number
 }
 
 export default typeCoin;
