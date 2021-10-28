@@ -16,5 +16,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/MeanReversion_MA200_50_StopLoss/index.js"
+  "scriptFile": "../dist/StopLoss/index.js"
 }

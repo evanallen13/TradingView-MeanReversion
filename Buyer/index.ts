@@ -7,8 +7,8 @@ import enumTrader from "../src/Models/enumTraders";
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
   const ticker: string = req.query.ticker; //req.body.ticker;
-  //const trader: enumTrader = enumTrader[req.query.trader];
- // context.log(trader);
+  const trader: enumTrader = enumTrader[req.query.trader];
+  context.log(trader);
   const coin: typeCoin = Coins[ticker.toUpperCase()];
   const kraken: Kraken = new Kraken();
   const data: Data = new Data();
@@ -27,9 +27,9 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
 
     const txid: string = "OTNE2M-ZQ2IQ-T3GI4G";
     const krakenOrder = await kraken.QueryOrder(txid, coin);
-    context.log(krakenOrder)
-   // krakenOrder.trader = trader;
 
+    krakenOrder.trader = trader;
+    context.log(krakenOrder)
     data.Buyer_Save(krakenOrder);
   }
 };
