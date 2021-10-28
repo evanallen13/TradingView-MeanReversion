@@ -16,5 +16,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/MeanReversion_MA200_50_Buyer/index.js"
+  "scriptFile": "../dist/Buyer/index.js"
 }
