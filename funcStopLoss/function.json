@@ -16,5 +16,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/StopLoss/index.js"
+  "scriptFile": "../dist/funcStopLoss/index.js"
 }
