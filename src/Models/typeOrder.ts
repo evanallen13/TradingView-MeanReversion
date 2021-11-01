@@ -12,6 +12,9 @@ type typeOrder = {
     type: "buy" | "sell",
     ordertype: "market" | "limit" | "stop-loss",
     trader?: enumTrader
+
+    buyerTxid?: string;
+    sellType?: "SellOff" | "StopLoss"
 }
 
 export default typeOrder;

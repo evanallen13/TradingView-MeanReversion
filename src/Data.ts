@@ -47,6 +47,24 @@ class Data {
             console.log("OpenBuy_Grid " + err.message);
         }
     };
+
+    Seller_Save = async (order: typeOrder) => {
+        try {
+            await sql.connect(con);
+            const request = new sql.Request()
+                .input("TXID", order.txid)
+                .input("BuyTXID", order.buyerTxid)
+                .input("CreatedOn", order.createdOn)
+                .input("SellPrice", order.sellPrice)
+                .input("SellType", order.sellType)
+                .input("Fee", order.fee)
+            const result = request.execute("Buy_Save");
+            console.log(result);
+            
+        } catch (err) {
+            console.log("OpenBuy_Grid " + err.message);
+        }
+    };
 }
 
 export default Data;
