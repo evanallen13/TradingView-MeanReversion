@@ -15,16 +15,16 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
 
   if (coin.Minimum * askBid.Ask < currBalance) {
 
-    const txid: string = await kraken.AddOrder({
-      ticker: ticker,
-      pair: coin.Pair,
-      type: "buy",
-      ordertype: "limit",
-      volume: coin.Minimum,
-      price: askBid.Ask
-    });
+    // const txid: string = await kraken.AddOrder({
+    //   ticker: ticker,
+    //   pair: coin.Pair,
+    //   type: "buy",
+    //   ordertype: "limit",
+    //   volume: coin.Minimum,
+    //   price: askBid.Ask
+    // });
 
-    //const txid: string = "OTNE2M-ZQ2IQ-T3GI4G";
+    const txid: string = "OTNE2M-ZQ2IQ-T3GI4G";
     const krakenOrder = await kraken.QueryOrder(txid, coin);
 
     krakenOrder.trader = trader;
