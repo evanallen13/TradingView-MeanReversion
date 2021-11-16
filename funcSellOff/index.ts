@@ -17,13 +17,16 @@ const timerTrigger: AzureFunction = async function (context: Context, myTimer: a
         
         if(price >= buy.SellOff){
             const currBalance = await kraken.AskBid(coin);
-            const txid: string = await kraken.AddOrder({
-                pair: coin.KrakenPair,
-                type: "sell",
-                ordertype: "market",
-                price: currBalance.Bid,
-                volume: buy.Volume
-            });
+            // const txid: string = await kraken.AddOrder({
+            //     pair: coin.KrakenPair,
+            //     type: "sell",
+            //     ordertype: "market",
+            //     price: currBalance.Bid,
+            //     volume: buy.Volume
+            // });
+
+
+            const txid: string = "OQTYKA-LQXUW-SQRTCZ";
 
             const krakenOrder = await kraken.QueryOrder(txid, coin);
 
